@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="ta">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DYFI ID Generator 2026</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+</head>
+<body>
+
+    <div id="loader">
+        <div class="loader-ui">
+            <div class="spinner"></div>
+            <h1>DYFI 2026</h1>
+            <p>உறுப்பினர் அட்டை பக்கம் தயாராகிறது...</p>
+        </div>
+    </div>
+
+    <div id="app-container" style="display: none;">
+        <header>DYFI Membership Form - 2026</header>
+
+        <div class="form-section">
+            <div class="input-card">
+                <input type="text" id="id_num" placeholder="உறுப்பினர் எண் / Serial No">
+                <input type="text" id="name" placeholder="பெயர் / Full Name">
+                
+                <div class="row">
+                    <select id="age">
+                        <option value="">வயது (Age)</option>
+                        <script>for(let i=15; i<=40; i++) document.write(`<option value="${i}">${i}</option>`);</script>
+                    </select>
+                    <input type="text" id="edu" placeholder="கல்வி / Education">
+                </div>
+
+                <input type="text" id="addr" placeholder="முகவரி / Address">
+                <input type="text" id="branch" placeholder="கிளை / Branch">
+                <input type="text" id="area" placeholder="பகுதி / Area">
+                
+                <select id="dist">
+                    <option value="">மாவட்டம் / Choose District</option>
+                    <option value="Ariyalur / அரியலூர்">Ariyalur / அரியலூர்</option>
+                    <option value="Chennai / சென்னை">Chennai / சென்னை</option>
+                    <option value="Madurai / மதுரை">Madurai / மதுரை</option>
+                    <option value="Coimbatore / கோயம்புத்தூர்">Coimbatore / கோயம்புத்தூர்</option>
+                    </select>
+
+                <select id="blood">
+                    <option value="">இரத்த வகை / Blood Group</option>
+                    <option value="A+">A+</option><option value="B+">B+</option>
+                    <option value="O+">O+</option><option value="AB+">AB+</option>
+                </select>
+
+                <input type="text" id="date" placeholder="தேதி (DD/MM/2026)" value="22/01/2026">
+            </div>
+            <button class="gen-btn" id="generateTrigger">Generate My Card</button>
+        </div>
+
+        <div id="result-area" style="display: none;">
+            <div class="id-card front-card" id="card-front">
+                <div class="header-text">
+                    Democratic Youth Federation of India<br>
+                    அனைவருக்கும் வேலை! &nbsp; அனைவருக்கும் கல்வி!
+                </div>
+                <div class="org-name-main">இந்திய ஜனநாயக வாலிபர் சங்கம்</div>
+                <div class="leader-graphics">
+                    <img src="https://raw.githubusercontent.com/TNDYFI/membership/main/etc/bagth.png" class="l-img">
+                    <img src="https://raw.githubusercontent.com/TNDYFI/membership/main/etc/che.png" class="r-img">
+                </div>
+                <div class="dyfi-logo-style">DYF<span class="i-star">I<span class="star-on-top">★</span></span></div>
+                <div class="footer-strip-front">உறுப்பினர் அட்டை <span>2026</span></div>
+            </div>
+
+            <div class="id-card back-card" id="card-back">
+                <div class="serial-no" id="out-id"></div>
+                <div class="data-rows">
+                    <p>பெயர் : <span id="out-name"></span></p>
+                    <p>வயது : <span id="out-age"></span> &nbsp; கல்வி : <span id="out-edu"></span></p>
+                    <p>முகவரி : <span id="out-addr"></span></p>
+                    <p>கிளை : <span id="out-branch"></span></p>
+                    <p>பகுதி : <span id="out-area"></span></p>
+                    <p>மாவட்டம் : <span id="out-dist"></span></p>
+                    <p>இரத்த வகை : <span id="out-blood"></span></p>
+                </div>
+                <div class="subscription-note">உறுப்பினர் சந்தா ரூ. 2/- பெற்றுக்கொண்டோம்</div>
+                <div class="signature-area">
+                    <div class="date-show">தேதி : <span id="out-date"></span></div>
+                    <div class="sign-title">மாநிலச் செயலாளர்</div>
+                </div>
+                <div class="footer-address">
+                    இந்திய ஜனநாயக வாலிபர் சங்கம்<br>
+                    தமிழ் மாநிலக் குழு<br>
+                    57/21, அருணோதயா வளாகம், ஈ.வே.ரா. நெடுஞ்சாலை,<br>
+                    பெரியமேடு, சென்னை - 600 003.
+                </div>
+            </div>
+
+            <button class="dl-btn" id="downloadTrigger">Download Card (Both Sides)</button>
+        </div>
+    </div>
+
+    <script>
+        // Use window listener to ensure scripts run after page loads
+        window.addEventListener('load', () => {
+            setTimeout(() => {
+                document.getElementById('loader').style.display = 'none';
+                document.getElementById('app-container').style.display = 'block';
+            }, 3000);
+
+            const genBtn = document.getElementById('generateTrigger');
+            genBtn.addEventListener('click', () => {
+                // Manually mapping to ensure no errors
+                document.getElementById('out-id').innerText = document.getElementById('id_num').value;
+                document.getElementById('out-name').innerText = document.getElementById('name').value;
+                document.getElementById('out-age').innerText = document.getElementById('age').value;
+                document.getElementById('out-edu').innerText = document.getElementById('edu').value;
+                document.getElementById('out-addr').innerText = document.getElementById('addr').value;
+                document.getElementById('out-branch').innerText = document.getElementById('branch').value;
+                document.getElementById('out-area').innerText = document.getElementById('area').value;
+                document.getElementById('out-dist').innerText = document.getElementById('dist').value;
+                document.getElementById('out-blood').innerText = document.getElementById('blood').value;
+                document.getElementById('out-date').innerText = document.getElementById('date').value;
+
+                document.getElementById('result-area').style.display = 'block';
+                window.scrollTo({ top: document.getElementById('result-area').offsetTop, behavior: 'smooth' });
+            });
+
+            const dlBtn = document.getElementById('downloadTrigger');
+            dlBtn.addEventListener('click', async () => {
+                const sides = ['card-front', 'card-back'];
+                for (const side of sides) {
+                    const canvas = await html2canvas(document.getElementById(side), { scale: 3, useCORS: true });
+                    const link = document.createElement('a');
+                    link.download = `${side}_DYFI_2026.png`;
+                    link.href = canvas.toDataURL();
+                    link.click();
+                }
+            });
+        });
+    </script>
+</body>
+</html>
